@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Evolva — The Design Studio | Digital Marketing &amp; Branding, Bangalore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>
+(function(){
+  const saved = localStorage.getItem('evolva_theme');
+  const initial = saved === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', initial);
+})();
+</script>
+<style>
+:root{
+  --paper:#F5F6FA;
+  --panel:#ECEEF5;
+  --line:#DCE0EC;
+  --blue:#1B4CE0;
+  --blue-lt:#4A73F0;
+  --blue-dk:#0E2B85;
+  --orange:#F5893A;
+  --orange-lt:#FFA968;
+  --ink:#0C1230;
+  --body:#3D4260;
+  --muted:#7A7F9C;
+  --white:#FFFFFF;
+  --blue-rgb:27,76,224;
+  --orange-rgb:245,137,58;
+  --ink-rgb:12,18,48;
+  --surface-dark:#0C1230;
+  --surface-dark-rgb:12,18,48;
+  --ff-display:'Sora',sans-serif;
+  --ff-body:'JetBrains Mono',monospace;
+  --r:12px;
+}
+html[data-theme="dark"]{
+  --paper:#0B0E1A;
+  --panel:#12162A;
+  --line:#252A44;
+  --blue:#4A73F0;
+  --blue-lt:#6E92FF;
+  --blue-dk:#A8BFFF;
+  --orange:#F5893A;
+  --orange-lt:#FFA968;
+  --ink:#F5F6FA;
+  --body:#C7CBE0;
+  --muted:#8A8FB0;
+  --white:#161A30;
+  --blue-rgb:74,115,240;
+  --orange-rgb:245,137,58;
+  --ink-rgb:6,8,18;
+  --surface-dark:#161A30;
+  --surface-dark-rgb:22,26,48;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+button,a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
+button:focus,a:focus{outline:none;}
+html{scroll-behavior:smooth;}
+html,body{transition:background-color .35s ease,color .35s ease;}
+body{font-family:var(--ff-body);background:var(--paper);color:var(--body);overflow-x:hidden;}
+img{display:block;max-width:100%;height:auto;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--paper);}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px;}
+
+/* ═══ NAV — glass pill ═══ */
+#navbar{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:995;
+  background:rgba(var(--surface-dark-rgb),0.55);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(255,255,255,0.14);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px 0 16px;
+  height:54px;
+  width:calc(100% - 32px);
+  max-width:1200px;
+  border-radius:99px;
+  box-shadow:0 10px 34px rgba(14,20,60,0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+  transition:background .3s,box-shadow .3s,top .3s;
+}
+#navbar.scrolled{
+  background:rgba(var(--surface-dark-rgb),0.82);
+  top:10px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo-badge{
+  width:33px;height:33px;border-radius:50%;
+  background:conic-gradient(from 200deg, var(--blue), var(--orange), var(--blue));
+  display:grid;place-items:center;position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.3);
+  transition:transform .4s ease;
+}
+.nav-logo:hover .nav-logo-badge{transform:rotate(180deg);}
+.nav-logo-badge::after{content:'';width:20px;height:20px;border-radius:50%;background:var(--surface-dark);}
+.nav-logo-text{color:#fff;font-family:var(--ff-display);font-size:1.05rem;font-weight:700;line-height:1.1;}
+.nav-logo-text small{display:block;font-family:var(--ff-body);font-size:.62rem;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:2px;}
+.nav-links{display:flex;gap:1.7rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,.85);font-size:.82rem;font-weight:500;position:relative;transition:color .2s;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--orange-lt);transition:width .25s;}
+.nav-links a:hover{color:#fff;}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{background:var(--orange);color:#fff;padding:8px 18px;border-radius:99px;font-size:.8rem;font-weight:600;transition:.2s;white-space:nowrap;}
+.nav-cta:hover{background:var(--orange-lt);transform:translateY(-1px);}
+/* ═══ THEME TOGGLE — icon-only, inverts color with the active theme ═══ */
+#theme-switcher{
+  position:fixed;bottom:24px;left:24px;z-index:900;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--surface-dark);
+  display:grid;place-items:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+  border:none;cursor:pointer;padding:0;
+  transition:background .3s ease,transform .2s ease;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout:none;
+  outline:none;
+  -webkit-user-select:none;user-select:none;
+}
+#theme-switcher:focus,#theme-switcher:active{outline:none;-webkit-tap-highlight-color:transparent;}
+#theme-switcher:hover{transform:scale(1.1);}
+html[data-theme="dark"] #theme-switcher{
+  background:#FFFFFF;
+  box-shadow:0 4px 16px rgba(0,0,0,.5);
+}
+#theme-switcher svg{width:20px;height:20px;transition:opacity .2s;}
+#theme-icon-sun{color:#FFFFFF;display:block;}
+#theme-icon-moon{color:var(--surface-dark);display:none;}
+html[data-theme="dark"] #theme-icon-sun{display:none;}
+html[data-theme="dark"] #theme-icon-moon{display:block;}
+.ham{display:none;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);cursor:pointer;position:relative;z-index:999;align-items:center;justify-content:center;padding:0;transition:.3s;flex-shrink:0;}
+.ham span{display:none;}
+.ham::before,.ham::after{content:'';position:absolute;width:13px;height:1.5px;background:#fff;border-radius:2px;opacity:0;transition:.3s;}
+.ham::before{transform:rotate(45deg);}.ham::after{transform:rotate(-45deg);}
+.ham.open{background:#fff;border-color:#fff;transform:scale(1.05);}
+.ham.open::before,.ham.open::after{opacity:1;background:var(--surface-dark);}
+.mob-nav{position:fixed;inset:0;z-index:985;background:var(--surface-dark);display:flex;flex-direction:column;justify-content:center;padding:0 10%;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.mob-nav.open{opacity:1;pointer-events:all;}
+.mob-nav ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.mob-nav a{font-family:var(--ff-display);font-size:clamp(2.2rem,9vw,3.2rem);font-weight:700;color:#FFFFFF;display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);transition:.2s;}
+.mob-nav a:hover{color:var(--orange-lt);padding-left:10px;}
+.mob-nav-contact{position:absolute;top:44px;right:10%;color:rgba(255,255,255,.4);font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ═══ TYPE SCALE ═══ */
+.kicker{font-family:var(--ff-body);font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--blue);}
+.num-tag{font-family:var(--ff-display);font-size:.78rem;color:var(--muted);letter-spacing:1px;}
+
+/* ═══ HERO ═══ */
+#home{background:var(--paper);position:relative;padding:120px 0 0;}
+.hero-grid{
+  display:grid;grid-template-columns:7fr 5fr;
+  min-height:calc(100vh - 120px);
+  border-top:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.hero-left{padding:48px 5% 60px 6vw;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--line);}
+.hero-right{padding:48px 6vw 60px 5%;display:flex;flex-direction:column;justify-content:flex-end;position:relative;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:36px;}
+.hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+.hero-mega{font-family:var(--ff-display);font-weight:800;font-size:clamp(3rem,8.6vw,7rem);line-height:0.98;letter-spacing:-2px;color:var(--ink);}
+.hero-mega .ln2{color:var(--blue);display:block;}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:48px;flex-wrap:wrap;}
+.hero-desc{max-width:380px;font-size:1rem;line-height:1.7;color:var(--body);}
+.btn-pill{background:var(--surface-dark);color:#fff;padding:15px 30px;border-radius:99px;font-size:.88rem;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:.2s;white-space:nowrap;}
+.btn-pill:hover{background:var(--blue);transform:translateY(-2px);}
+.hero-stat-block{border-top:1px solid var(--line);padding-top:28px;}
+.hero-stat-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);}
+.hero-stat-row:first-child{padding-top:0;}
+.hero-stat-row .label{font-size:.78rem;color:var(--muted);letter-spacing:.5px;}
+.hero-stat-row .val{font-family:var(--ff-display);font-size:1.3rem;font-weight:700;color:var(--blue-dk);}
+
+/* ═══ SERVICES CHIPS on hero-right top (deco) ═══ */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.chip{background:var(--panel);border:1px solid var(--line);color:var(--body);font-size:.72rem;font-weight:600;padding:7px 14px;border-radius:99px;letter-spacing:.3px;transition:.2s;cursor:default;}
+.chip:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-2px);}
+
+/* ═══ MARQUEE ═══ */
+.marquee-wrap{border-top:1px solid var(--line);background:var(--surface-dark);overflow:hidden;padding:18px 0;}
+.marquee-track{display:flex;gap:48px;white-space:nowrap;animation:scrollLeft 28s linear infinite;width:max-content;}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+.marquee-track span{font-family:var(--ff-display);font-weight:700;font-size:1.1rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:14px;}
+.marquee-track span::after{content:'✦';color:var(--orange);font-size:.8rem;}
+@keyframes scrollLeft{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══ ABOUT — magazine pull quote ═══ */
+#about{padding:0;border-top:1px solid var(--line);}
+.about-row{display:grid;grid-template-columns:1fr 1fr;}
+.about-num{padding:80px 24px 60px 6vw;border-right:1px solid var(--line);}
+.about-quote{font-family:var(--ff-display);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.25;color:var(--ink);letter-spacing:-.5px;margin:24px 0 32px;}
+.about-quote em{color:var(--blue);font-style:normal;}
+.about-meta{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap;}
+.about-meta div strong{display:block;font-family:var(--ff-display);font-size:1.6rem;color:var(--blue-dk);}
+.about-meta div span{font-size:.74rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.about-list{padding:80px 6vw 60px 24px;display:flex;flex-direction:column;}
+.about-list-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:flex-start;transition:padding-left .25s;}
+.about-list-item:hover{padding-left:10px;}
+.about-list-item:hover .li-num{color:var(--orange);}
+.about-list-item:first-child{padding-top:0;}
+.about-list-item .li-num{font-family:var(--ff-display);font-size:.85rem;color:var(--blue);font-weight:700;flex-shrink:0;width:28px;transition:color .25s;}
+.about-list-item p{font-size:.92rem;color:var(--body);line-height:1.65;}
+
+/* ═══ TEAM ═══ */
+.team-wrap{border-top:1px solid var(--line);padding:64px 6%;}
+.team-head{margin-bottom:44px;}
+.team-head .kicker{display:block;margin-bottom:16px;}
+.team-head h3{font-family:var(--ff-display);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);color:var(--ink);letter-spacing:-.8px;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);}
+.team-card{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:28px;transition:background .25s,transform .25s;cursor:default;}
+.team-card:hover{background:rgba(var(--blue-rgb),.04);transform:translateY(-4px);}
+.team-photo{width:100%;aspect-ratio:1/1;border-radius:var(--r);background:var(--panel);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--muted);font-size:.78rem;text-align:center;padding:20px;overflow:hidden;transition:border-color .25s;}
+.team-card:hover .team-photo{border-color:var(--blue);}
+.team-photo img{width:100%;height:100%;object-fit:cover;border-radius:var(--r);}
+.team-name{font-family:var(--ff-display);font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:4px;}
+.team-role{font-size:.78rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px;}
+.team-links{display:flex;gap:10px;}
+.team-links a{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:.2s;}
+.team-links a:hover{background:var(--blue);border-color:var(--blue);color:#fff;}
+.team-links svg{width:15px;height:15px;}
+
+/* ═══ SERVICES — index list ═══ */
+#services{padding:0;border-top:1px solid var(--line);background:var(--panel);}
+.serv-head{padding:80px 6% 40px;border-bottom:1px solid var(--line);}
+.serv-head .kicker{margin-bottom:18px;display:block;}
+.serv-head h2{font-family:var(--ff-display);font-size:clamp(2.2rem,5.6vw,4rem);font-weight:800;color:var(--ink);letter-spacing:-1.5px;line-height:1;}
+.serv-row{display:grid;grid-template-columns:80px 1fr 280px;align-items:center;gap:24px;padding:32px 6%;border-bottom:1px solid var(--line);transition:background .25s,padding-left .25s;cursor:default;}
+.serv-row:hover{background:rgba(var(--blue-rgb),.05);padding-left:calc(6% + 10px);}
+.serv-row-num{font-family:var(--ff-display);font-size:1rem;color:var(--blue);font-weight:700;}
+.serv-row-title{font-family:var(--ff-display);font-size:clamp(1.2rem,2.5vw,1.9rem);font-weight:700;color:var(--ink);letter-spacing:-.3px;transition:color .25s;}
+.serv-row:hover .serv-row-title{color:var(--blue);}
+.serv-row-desc{font-size:.86rem;color:var(--muted);line-height:1.6;}
+
+/* ═══ PORTFOLIO — offset strip ═══ */
+#portfolio{padding:0;border-top:1px solid var(--line);}
+.port-head{padding:80px 6% 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;}
+.port-head h2{font-family:var(--ff-display);font-size:clamp(2.1rem,5.4vw,3.6rem);font-weight:800;color:var(--ink);letter-spacing:-1px;}
+.port-strip{display:flex;overflow-x:auto;gap:0;scrollbar-width:none;border-top:1px solid var(--line);}
+.port-strip::-webkit-scrollbar{display:none;}
+.port-tile{flex:0 0 auto;width:320px;border-right:1px solid var(--line);padding:32px 28px;background:var(--paper);transition:background .25s,transform .25s;position:relative;}
+.port-tile:nth-child(even){background:var(--panel);}
+.port-tile:hover{background:rgba(var(--orange-rgb),.08);transform:translateY(-6px);}
+.port-tile-ph{width:100%;aspect-ratio:4/3;background:rgba(var(--blue-rgb),.07);border:1px dashed var(--line);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;color:var(--muted);transition:color .25s,border-color .25s;overflow:hidden;}
+.port-tile-ph img{width:100%;height:100%;object-fit:cover;border-radius:calc(var(--r) - 1px);}
+.port-tile:hover .port-tile-ph{color:var(--orange);border-color:var(--orange);}
+.port-tile h4{font-family:var(--ff-display);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.port-tile span{font-size:.78rem;color:var(--muted);}
+
+/* ═══ GALLERY ═══ */
+.gal-wrap{border-top:1px solid var(--line);padding:64px 6%;}
+.gal-head{margin-bottom:28px;}
+.gal-head .kicker{display:block;margin-bottom:16px;}
+.gal-head h3{font-family:var(--ff-display);font-weight:800;font-size:clamp(1.7rem,4.2vw,2.6rem);color:var(--ink);letter-spacing:-.8px;margin-bottom:14px;}
+.gal-sub{font-size:.9rem;color:var(--muted);max-width:520px;line-height:1.6;}
+.gal-filter{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0 8px;}
+.gf-btn{border:1.5px solid var(--line);background:transparent;color:var(--muted);font-family:var(--ff-body);font-size:.78rem;font-weight:600;padding:8px 18px;border-radius:99px;cursor:pointer;transition:.2s;}
+.gf-btn.active,.gf-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:3px;margin-top:24px;border:1px solid var(--line);}
+.gal-item{aspect-ratio:1;position:relative;cursor:pointer;background:var(--panel);overflow:hidden;transition:transform .3s;}
+.gal-item:hover{transform:scale(1.03);z-index:2;}
+.gal-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:.7rem;text-align:center;padding:12px;background:var(--panel);transition:color .25s;overflow:hidden;}
+.gal-ph img{width:100%;height:100%;object-fit:cover;}
+.gal-item:hover .gal-ph{color:var(--blue);}
+.gal-ph strong{font-family:var(--ff-display);font-weight:700;font-size:.82rem;color:var(--ink);}
+.gal-ov{position:absolute;inset:0;background:rgba(27,76,224,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.gal-item:hover .gal-ov{opacity:1;}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* Lightbox */
+#lb{position:fixed;inset:0;background:rgba(6,8,18,.94);z-index:9999;display:none;align-items:center;justify-content:center;}
+#lb.on{display:flex;}
+#lb img{max-width:90vw;max-height:88vh;border-radius:8px;object-fit:contain;}
+#lb-ph{width:min(70vw,420px);aspect-ratio:4/3;border:1px dashed rgba(255,255,255,.25);border-radius:12px;align-items:center;justify-content:center;background:rgba(255,255,255,.03);display:none;}
+#lb-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer;color:#fff;}
+#lb-close:hover{background:rgba(255,255,255,.2);}
+#lb-caption{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:.85rem;font-family:var(--ff-display);}
+
+/* ═══ PROCESS ═══ */
+.proc-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0;transition:.3s;border:2px solid transparent;box-sizing:content-box;}
+.proc-dot.is-active{background:var(--blue);}
+.proc-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:32px 24px;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;transition:background .35s,border-color .35s,transform .3s,box-shadow .3s;}
+.proc-card.is-active{background:var(--surface-dark);border-color:var(--surface-dark);transform:translateY(-6px);box-shadow:0 20px 40px rgba(14,20,60,.25);}
+.proc-card.is-active .proc-num{color:var(--orange);}
+.proc-card.is-active .proc-title,.proc-card.is-active .proc-desc{color:#fff;}
+.proc-card.is-active .proc-desc{color:rgba(255,255,255,.65);}
+.proc-num{font-family:var(--ff-display);font-size:3.4rem;font-weight:800;color:var(--line);line-height:1;margin-bottom:22px;transition:color .35s;}
+.proc-title{font-family:var(--ff-display);font-size:1.02rem;font-weight:700;color:var(--ink);margin-bottom:10px;transition:color .35s;}
+.proc-desc{font-size:.84rem;color:var(--muted);line-height:1.6;transition:color .35s;}
+
+/* ═══ WHY — dark strip ═══ */
+.why-strip{background:var(--surface-dark);padding:80px 6%;}
+.why-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;}
+.why-head .kicker{color:var(--orange-lt);}
+.why-head h2{font-family:var(--ff-display);font-size:clamp(2.1rem,5.4vw,3.4rem);font-weight:800;color:#fff;letter-spacing:-1px;}
+.why-list{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.1);}
+.why-row{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,.1);align-items:flex-start;transition:padding-left .25s;}
+.why-row:hover{padding-left:8px;}
+.why-row:hover .wn{color:#fff;}
+.why-row:nth-child(odd){padding-right:32px;border-right:1px solid rgba(255,255,255,.1);}
+.why-row:nth-child(even){padding-left:32px;}
+.why-row .wn{font-family:var(--ff-display);font-size:1.5rem;font-weight:800;color:var(--orange-lt);flex-shrink:0;width:46px;transition:color .25s;}
+.why-row h4{color:#fff;font-family:var(--ff-display);font-weight:700;font-size:1rem;margin-bottom:6px;}
+.why-row p{color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.6;}
+
+/* ═══ TESTIMONIALS ═══ */
+.testi-sec{background:var(--paper);padding:80px 6%;}
+.testi-head{margin-bottom:48px;}
+.testi-head h2{font-family:var(--ff-display);font-size:clamp(2.1rem,5vw,3.2rem);font-weight:800;color:var(--ink);letter-spacing:-1px;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);}
+.testi-card{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:36px 28px;background:var(--white);transition:transform .25s,box-shadow .25s;}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(14,20,60,.08);}
+.testi-quote{font-size:.92rem;line-height:1.75;color:var(--body);margin-bottom:24px;}
+.testi-who strong{display:block;font-family:var(--ff-display);font-size:.94rem;color:var(--ink);}
+.testi-who span{font-size:.76rem;color:var(--muted);}
+.testi-stars{color:var(--orange);font-size:.85rem;margin-bottom:14px;letter-spacing:2px;}
+
+/* ═══ CONTACT ═══ */
+#contact{border-top:1px solid var(--line);background:var(--panel);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;}
+.contact-left{padding:80px 6vw 80px 6%;border-right:1px solid var(--line);}
+.contact-left h2{font-family:var(--ff-display);font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;color:var(--ink);letter-spacing:-1px;margin:18px 0 20px;}
+.contact-left p{font-size:.94rem;color:var(--body);line-height:1.75;max-width:420px;margin-bottom:36px;}
+.contact-info-row{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line);transition:padding-left .25s,background .25s;cursor:pointer;}
+.contact-info-row:hover{padding-left:8px;background:rgba(var(--blue-rgb),.04);}
+.contact-info-row:last-of-type{border-bottom:1px solid var(--line);}
+.ci-arrow{margin-left:auto;color:var(--muted);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;flex-shrink:0;}
+.ci-arrow svg{width:16px;height:16px;}
+.contact-info-row:hover .ci-arrow{opacity:1;transform:translateX(0);color:var(--blue);}
+.form-heading{font-family:var(--ff-display);font-weight:800;font-size:1.3rem;color:var(--ink);margin-bottom:28px;letter-spacing:-.3px;}
+.f-error{display:block;font-size:.74rem;color:#E0483E;margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .25s ease,opacity .2s ease;}
+.f-field.has-error .f-error{max-height:30px;opacity:1;}
+.f-field.has-error input,.f-field.has-error textarea,.f-field.has-error select{border-color:#E0483E;}
+.contact-info-row .ci-ico{width:38px;height:38px;border-radius:50%;background:var(--white);border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0;}
+.contact-info-row .ci-txt strong{display:block;font-family:var(--ff-display);font-size:.92rem;color:var(--ink);}
+.contact-info-row .ci-txt span{font-size:.78rem;color:var(--muted);}
+.contact-right{padding:80px 6% 80px 6vw;}
+.f-field{margin-bottom:30px;}
+.f-field label{display:block;font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.f-field input,.f-field textarea,.f-field select{
+  width:100%;background:transparent;border:none;border-bottom:1.5px solid var(--line);
+  border-radius:0;padding:10px 2px;font-family:var(--ff-body);font-size:.94rem;color:var(--ink);
+  transition:border-color .25s;appearance:none;-webkit-appearance:none;
+}
+.f-field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A7F9C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:14px;}
+.f-field input::placeholder,.f-field textarea::placeholder{color:var(--muted);opacity:.7;}
+.f-field input:focus,.f-field textarea:focus,.f-field select:focus{outline:none;border-color:var(--blue);}
+.f-field textarea{resize:vertical;min-height:70px;}
+.f-submit{background:var(--surface-dark);color:#fff;border:none;padding:15px 32px;border-radius:99px;font-family:var(--ff-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;}
+.f-submit:hover{background:var(--blue);}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--surface-dark);padding:64px 6% 24px;}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1);}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.foot-brand .nav-logo-badge{width:34px;height:34px;}
+.foot-brand span{font-family:var(--ff-display);font-size:1.15rem;font-weight:700;color:#fff;}
+.foot-desc{font-size:.84rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:280px;}
+.foot-col h5{color:#fff;font-weight:700;font-size:.86rem;margin-bottom:18px;font-family:var(--ff-display);}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.foot-col a{color:rgba(255,255,255,.4);font-size:.83rem;transition:.2s;position:relative;display:inline-block;}
+.foot-col a:hover{color:var(--orange-lt);padding-left:4px;}
+.foot-col a:hover{color:var(--orange-lt);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;}
+.foot-bottom span{font-size:.78rem;color:rgba(255,255,255,.4);}
+
+/* ═══ WHATSAPP FAB ═══ */
+#wa-fab{position:fixed;bottom:24px;right:24px;z-index:900;width:44px;height:44px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 4px 16px rgba(37,211,102,.35);transition:transform .2s;-webkit-tap-highlight-color:transparent;outline:none;}
+#wa-fab:hover{transform:scale(1.1);}
+#wa-fab svg{width:20px;height:20px;}
+
+/* ═══ POLICY OVERLAY ═══ */
+#policy-overlay{position:fixed;inset:0;z-index:1000;background:rgba(12,18,48,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;}
+.policy-box{background:var(--white);border-radius:16px;max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:40px;position:relative;}
+.policy-box h3{font-family:var(--ff-display);font-size:1.5rem;font-weight:800;color:var(--ink);margin-bottom:20px;}
+.policy-close{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;display:grid;place-items:center;}
+
+/* ═══ COOKIE BANNER ═══ */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:990;background:var(--surface-dark);display:none;align-items:center;justify-content:space-between;gap:20px;padding:18px 6%;flex-wrap:wrap;}
+#cookie-banner p{font-size:.8rem;color:rgba(255,255,255,.7);max-width:600px;}
+#cookie-banner button{background:var(--orange);color:#fff;border:none;padding:10px 24px;border-radius:99px;font-family:var(--ff-body);font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+
+/* ═══ REVEAL ANIMATIONS ═══ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.in-view > *:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in-view > *:nth-child(2){transition-delay:.12s;}
+.reveal-stagger.in-view > *:nth-child(3){transition-delay:.19s;}
+.reveal-stagger.in-view > *:nth-child(4){transition-delay:.26s;}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width:900px){
+  .nav-links{display:none;}
+  .nav-cta{display:none;}
+  .ham{display:flex;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-left{border-right:none;border-bottom:1px solid var(--line);}
+  .about-row{grid-template-columns:1fr;}
+  .about-num{border-right:none;border-bottom:1px solid var(--line);}
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .serv-row{grid-template-columns:1fr;gap:8px;}
+  .why-list{grid-template-columns:1fr;}
+  .why-row:nth-child(odd){border-right:none;padding-right:0;}
+  .why-row:nth-child(even){padding-left:0;}
+  .testi-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-left{border-right:none;border-bottom:1px solid var(--line);}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .process-cards{grid-template-columns:1fr 1fr !important;}
+}
+@media (max-width:560px){
+  .foot-grid{grid-template-columns:1fr;}
+  .process-cards{grid-template-columns:1fr !important;}
+  .foot-bottom{flex-direction:column;align-items:flex-start;}
+  .team-grid{grid-template-columns:1fr;}
+  .gal-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-badge"></div>
+    <div class="nav-logo-text">Evolva<small>The Design Studio</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+    <button class="ham" id="ham" onclick="toggleMob()" aria-label="Menu"></button>
+  </div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <div class="mob-nav-contact">+91 80882 15980</div>
+  <ul>
+    <li><a href="#home" onclick="closeMob()">Home</a></li>
+    <li><a href="#about" onclick="closeMob()">About</a></li>
+    <li><a href="#services" onclick="closeMob()">Services</a></li>
+    <li><a href="#portfolio" onclick="closeMob()">Work</a></li>
+    <li><a href="#testimonials" onclick="closeMob()">Reviews</a></li>
+    <li><a href="#contact" onclick="closeMob()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow"><span class="dot"></span><span class="kicker">Digital Marketing &amp; Design Studio, Bangalore</span></div>
+        <h1 class="hero-mega">Let Design<span class="ln2">Do the Talking.</span></h1>
+      </div>
+      <div class="hero-foot">
+        <p class="hero-desc">Evolva is a design and marketing studio helping brands attain online excellence — through logo design, websites, and digital marketing that actually converts.</p>
+        <a href="#contact" class="btn-pill">Start Your Project
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="chip-row">
+        <span class="chip">Digital Marketing</span>
+        <span class="chip">Logo Design</span>
+        <span class="chip">Web Design</span>
+        <span class="chip">SEO</span>
+      </div>
+      <div class="hero-stat-block">
+        <div class="hero-stat-row"><span class="label">Brands served</span><span class="val countup" data-target="60" data-suffix="+">0+</span></div>
+        <div class="hero-stat-row"><span class="label">Campaigns delivered</span><span class="val countup" data-target="150" data-suffix="+">0+</span></div>
+        <div class="hero-stat-row"><span class="label">Avg. client rating</span><span class="val countup" data-target="4" data-suffix=".8/5">0/5</span></div>
+        <div class="hero-stat-row"><span class="label">Based in</span><span class="val">Bangalore</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Digital Marketing</span><span>Logo Designing</span><span>Brochure Designing</span><span>Website Designing</span><span>Search Engine Optimization</span><span>Social Media Strategy</span>
+    <span>Digital Marketing</span><span>Logo Designing</span><span>Brochure Designing</span><span>Website Designing</span><span>Search Engine Optimization</span><span>Social Media Strategy</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-row">
+    <div class="about-num reveal">
+      <span class="kicker">01 / Who We Are</span>
+      <p class="about-quote">We turn <em>your idea</em> into creativity your brand can be recognised by — across every screen, every platform.</p>
+      <div class="about-meta">
+        <div><strong>2021</strong><span>Founded</span></div>
+        <div><strong>Bangalore</strong><span>Based Out Of</span></div>
+        <div><strong>22+</strong><span>Community followers</span></div>
+      </div>
+    </div>
+    <div class="about-list reveal">
+      <div class="about-list-item"><span class="li-num">01</span><p>Design and planning blend into creating digital fantasies — that's the promise behind every Evolva project.</p></div>
+      <div class="about-list-item"><span class="li-num">02</span><p>We work across UPVC-to-tech industries alike — any business that wants a sharper digital presence.</p></div>
+      <div class="about-list-item"><span class="li-num">03</span><p>From a single logo to a full-funnel campaign, our team handles strategy, design, and execution in-house.</p></div>
+      <div class="about-list-item"><span class="li-num">04</span><p>We believe good design speaks for your brand before a single word is read.</p></div>
+    </div>
+  </div>
+  <div class="team-wrap">
+    <div class="team-head reveal">
+      <span class="kicker">People Behind Evolva</span>
+      <h3>Meet the Team</h3>
+    </div>
+    <div class="team-grid reveal-stagger">
+      <div class="team-card">
+        <div class="team-photo"><img src="images/ritika-mallikarjun.png" alt="Ritika Mallikarjun" onerror="this.parentElement.textContent='Photo coming soon'"/></div>
+        <div class="team-name">Ritika Mallikarjun</div>
+        <div class="team-role">Founder</div>
+        <div class="team-links">
+          <a href="mailto:ritika@evolva.co.in" aria-label="Email Ritika">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" target="_blank" aria-label="Ritika on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><img src="images/tharun-kommaddi.png" alt="Tharun Kommaddi" onerror="this.parentElement.textContent='Photo coming soon'"/></div>
+        <div class="team-name">Tharun Kommaddi</div>
+        <div class="team-role">Co-Founder</div>
+        <div class="team-links">
+          <a href="mailto:tharun@evolva.co.in" aria-label="Email Tharun">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" target="_blank" aria-label="Tharun on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo"><img src="images/team-member-3.png" alt="Team member" onerror="this.parentElement.textContent='Photo coming soon'"/></div>
+        <div class="team-name">&nbsp;</div>
+        <div class="team-role">&nbsp;</div>
+        <div class="team-links">
+          <a href="#" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="#" target="_blank" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="serv-head reveal">
+    <span class="kicker">02 / What We Offer</span>
+    <h2>Our Services</h2>
+  </div>
+  <div class="serv-row reveal">
+    <span class="serv-row-num">01</span>
+    <span class="serv-row-title">Digital Marketing</span>
+    <span class="serv-row-desc">Paid ads, SEO, and content strategy built to drive targeted traffic and real conversions.</span>
+  </div>
+  <div class="serv-row reveal">
+    <span class="serv-row-num">02</span>
+    <span class="serv-row-title">Logo &amp; Brand Identity</span>
+    <span class="serv-row-desc">Distinct, memorable marks — because every product needs to say who it is at a glance.</span>
+  </div>
+  <div class="serv-row reveal">
+    <span class="serv-row-num">03</span>
+    <span class="serv-row-title">Website Design</span>
+    <span class="serv-row-desc">Fast, responsive websites that look sharp on every device and convert visitors into leads.</span>
+  </div>
+  <div class="serv-row reveal">
+    <span class="serv-row-num">04</span>
+    <span class="serv-row-title">Brochure &amp; Print</span>
+    <span class="serv-row-desc">Print-ready brochures and collateral designed to match your brand's digital presence.</span>
+  </div>
+  <div class="serv-row reveal">
+    <span class="serv-row-num">05</span>
+    <span class="serv-row-title">Social Media Management</span>
+    <span class="serv-row-desc">Consistent, on-brand posting and strategy across Instagram, Facebook, and beyond.</span>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="port-head reveal">
+    <h2>Selected Work</h2>
+    <span class="num-tag">Scroll to explore →</span>
+  </div>
+  <div class="port-strip" id="portStrip"></div>
+
+  <div class="gal-wrap">
+    <div class="gal-head reveal">
+      <span class="kicker">Full Gallery</span>
+      <h3>Browse Our Work</h3>
+      <p class="gal-sub">A closer look at campaigns, brand identities, and designs we've shipped for clients. Add real project photos to replace the placeholders below.</p>
+    </div>
+    <div class="gal-filter reveal" id="galFilter">
+      <button class="gf-btn active" data-cat="all">All</button>
+      <button class="gf-btn" data-cat="branding">Branding</button>
+      <button class="gf-btn" data-cat="social">Social Media</button>
+      <button class="gf-btn" data-cat="web">Web Design</button>
+      <button class="gf-btn" data-cat="print">Print</button>
+    </div>
+    <div class="gal-grid reveal-stagger" id="galGrid"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<div id="process" style="border-top:1px solid var(--line);background:var(--panel);padding:80px 0;">
+  <div class="reveal" style="padding:0 6% 48px;">
+    <span class="kicker">03 / How We Work</span>
+    <h2 style="font-family:var(--ff-display);font-weight:800;font-size:clamp(1.8rem,5.5vw,3rem);letter-spacing:1px;color:var(--line);margin-top:18px;text-transform:uppercase;">Our Work Process</h2>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;padding:0 6% 48px;max-width:1200px;margin:0 auto;">
+    <span class="proc-dot is-active" data-step="1"></span>
+    <div style="flex:1;height:1px;background:var(--line);"></div>
+    <span class="proc-dot" data-step="2"></span>
+    <div style="flex:1;height:1px;background:var(--line);"></div>
+    <span class="proc-dot" data-step="3"></span>
+    <div style="flex:1;height:1px;background:var(--line);"></div>
+    <span class="proc-dot" data-step="4"></span>
+  </div>
+  <div class="process-cards reveal-stagger" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 6%;max-width:1200px;margin:0 auto;">
+    <div class="proc-card is-active" data-step="1">
+      <span class="proc-num">01</span>
+      <h4 class="proc-title">Discovery</h4>
+      <p class="proc-desc">We learn your business, audience, and goals before touching a single pixel.</p>
+    </div>
+    <div class="proc-card" data-step="2">
+      <span class="proc-num">02</span>
+      <h4 class="proc-title">Strategy</h4>
+      <p class="proc-desc">A tailored plan across design, content, and channels — built around your budget.</p>
+    </div>
+    <div class="proc-card" data-step="3">
+      <span class="proc-num">03</span>
+      <h4 class="proc-title">Design &amp; Build</h4>
+      <p class="proc-desc">Our team designs, develops, and refines with you until it feels exactly right.</p>
+    </div>
+    <div class="proc-card" data-step="4">
+      <span class="proc-num">04</span>
+      <h4 class="proc-title">Launch &amp; Grow</h4>
+      <p class="proc-desc">We launch, track performance, and keep optimising for real results.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<div class="why-strip">
+  <div class="why-head">
+    <div>
+      <span class="kicker">04 / Why Evolva</span>
+      <h2>Built for brands that want to be seen</h2>
+    </div>
+  </div>
+  <div class="why-list">
+    <div class="why-row"><span class="wn">01</span><div><h4>Idea to Execution</h4><p>Your idea, our creativity — we handle the full pipeline from concept to launch.</p></div></div>
+    <div class="why-row"><span class="wn">02</span><div><h4>Data-Backed Decisions</h4><p>Every campaign is measured, so we know what's working and double down on it.</p></div></div>
+    <div class="why-row"><span class="wn">03</span><div><h4>In-House Team</h4><p>No outsourcing — design, dev, and marketing all sit under one roof.</p></div></div>
+    <div class="why-row"><span class="wn">04</span><div><h4>Clear Communication</h4><p>You'll always know what's happening with your project and why.</p></div></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testi-sec">
+  <div class="testi-head reveal">
+    <span class="kicker">05 / Client Words</span>
+    <h2>What clients say</h2>
+  </div>
+  <div class="testi-grid reveal-stagger">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">Evolva took our scattered social presence and gave it real direction. Our engagement has genuinely improved since we started working together.</p>
+      <div class="testi-who"><strong>Local Retail Client</strong><span>Bangalore</span></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">They understood our brand fast and delivered a logo and website that finally look like us. Communication throughout was smooth.</p>
+      <div class="testi-who"><strong>Service Business Owner</strong><span>Bengaluru</span></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">Straightforward, responsive, and genuinely creative. Would recommend Evolva to any small business looking to go digital.</p>
+      <div class="testi-who"><strong>D2C Founder</strong><span>Bangalore</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <span class="kicker">06 / Get In Touch</span>
+      <h2>Let's build something worth noticing.</h2>
+      <p>Tell us about your business and what you're looking to achieve — we'll get back to you with next steps.</p>
+      <a href="tel:+918088215980" class="contact-info-row">
+        <div class="ci-ico">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="ci-txt"><strong>Call Us</strong><span>+91 80882 15980</span></div>
+        <span class="ci-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <a href="mailto:evolvadesignstudio@gmail.com" class="contact-info-row">
+        <div class="ci-ico">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="ci-txt"><strong>Email Us</strong><span>evolvadesignstudio@gmail.com</span></div>
+        <span class="ci-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <a href="https://maps.google.com/?q=Bangalore" target="_blank" rel="noopener" class="contact-info-row">
+        <div class="ci-ico">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="ci-txt"><strong>Based In</strong><span>Bangalore</span></div>
+        <span class="ci-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+    <div class="contact-right reveal">
+      <h3 class="form-heading">Contact Form</h3>
+      <form id="contactForm" novalidate>
+        <div class="f-field">
+          <input type="text" id="f-name" placeholder="Your name"/>
+          <span class="f-error" id="err-name">Please enter your name</span>
+        </div>
+        <div class="f-field">
+          <input type="text" id="f-contact" placeholder="Phone or email"/>
+          <span class="f-error" id="err-contact">Please enter a phone number or email</span>
+        </div>
+        <div class="f-field">
+          <select id="f-service">
+            <option value="" disabled selected>Service interested in</option>
+            <option>Digital Marketing</option>
+            <option>Logo &amp; Brand Identity</option>
+            <option>Website Design</option>
+            <option>Brochure &amp; Print</option>
+            <option>Social Media Management</option>
+          </select>
+          <span class="f-error" id="err-service">Please choose a service</span>
+        </div>
+        <div class="f-field">
+          <textarea id="f-message" placeholder="Tell us a bit about your project"></textarea>
+          <span class="f-error" id="err-message">Please tell us a bit about your project</span>
+        </div>
+        <button type="submit" class="f-submit">Send
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand"><div class="nav-logo-badge"></div><span>Evolva</span></div>
+      <p class="foot-desc">The Design Studio — digital marketing, branding, and web design for businesses that want to be found and remembered.</p>
+    </div>
+    <div class="foot-col"><h5>Navigate</h5><ul>
+      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li><li><a href="#portfolio">Work</a></li>
+    </ul></div>
+    <div class="foot-col"><h5>Services</h5><ul>
+      <li><a href="#services">Digital Marketing</a></li><li><a href="#services">Logo Designing</a></li>
+      <li><a href="#services">Website Designing</a></li><li><a href="#services">SEO</a></li>
+    </ul></div>
+    <div class="foot-col"><h5>Contact</h5><ul>
+      <li><a href="tel:+918088215980">Call Us</a></li>
+      <li><a href="https://wa.me/918088215980">WhatsApp</a></li>
+      <li><a href="mailto:evolvadesignstudio@gmail.com">Email Us</a></li>
+    </ul></div>
+  </div>
+  <div class="foot-bottom" style="flex-direction:column;align-items:flex-start;gap:16px;">
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <button onclick="openPolicy('terms')" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:.78rem;cursor:pointer;font-family:var(--ff-body);padding:0;transition:color .2s;" onmouseover="this.style.color='var(--orange-lt)'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Terms &amp; Conditions</button>
+      <button onclick="openPolicy('privacy')" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:.78rem;cursor:pointer;font-family:var(--ff-body);padding:0;transition:color .2s;" onmouseover="this.style.color='var(--orange-lt)'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Privacy Policy</button>
+      <button onclick="openPolicy('cookies')" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:.78rem;cursor:pointer;font-family:var(--ff-body);padding:0;transition:color .2s;" onmouseover="this.style.color='var(--orange-lt)'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Cookie Policy</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:12px;">
+      <span>&copy; 2026 Evolva — The Design Studio. All rights reserved.</span>
+      <span>Crafted by <a href="https://tharunkommaddi.com" target="_blank" rel="noopener" style="color:var(--orange-lt);">Tharun Kommaddi</a></span>
+    </div>
+  </div>
+</footer>
+
+<a id="wa-fab" href="https://wa.me/918088215980" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- THEME SWITCHER — icon-only, inverts with theme -->
+<button id="theme-switcher" onclick="toggleTheme()" aria-label="Toggle dark mode">
+  <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<div id="lb" onclick="closeLb()">
+  <button id="lb-close" onclick="closeLb(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()" onerror="this.style.display='none';document.getElementById('lb-ph').style.display='flex';"/>
+  <div id="lb-ph" onclick="event.stopPropagation()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="width:56px;height:56px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+  </div>
+  <div id="lb-caption"></div>
+</div>
+
+<div id="policy-overlay">
+  <div class="policy-box">
+    <button class="policy-close" onclick="closePolicy()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3 id="policy-title"></h3>
+    <div id="policy-body" style="font-size:.9rem;line-height:1.75;color:var(--body);"></div>
+  </div>
+</div>
+
+<div id="cookie-banner">
+  <p>We use minimal cookies to remember your preferences. By continuing, you agree to our Cookie Policy.</p>
+  <button onclick="acceptCookies()">Got it</button>
+</div>
+
+<script>
+/* Theme (light/dark) toggle — same pattern as the reference language switcher */
+function toggleTheme(){
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('evolva_theme', next);
+}
+
+function toggleMob(){document.getElementById('mobNav').classList.toggle('open');document.getElementById('ham').classList.toggle('open');}
+function closeMob(){document.getElementById('mobNav').classList.remove('open');document.getElementById('ham').classList.remove('open');}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* Portfolio strip */
+const portData=[
+  {label:'Social Media Campaign',sub:'FMCG Brand · 2025',img:'portfolio-01-social-campaign.png'},
+  {label:'Logo &amp; Identity',sub:'Retail Startup · 2025',img:'portfolio-02-logo-identity.png'},
+  {label:'Website Redesign',sub:'Service Business · 2024',img:'portfolio-03-website-redesign.png'},
+  {label:'Festive Ad Series',sub:'D2C Brand · 2024',img:'portfolio-04-festive-ads.png'},
+  {label:'Brochure Design',sub:'B2B Client · 2025',img:'portfolio-05-brochure.png'},
+  {label:'SEO Campaign',sub:'Local Business · 2024',img:'portfolio-06-seo-campaign.png'},
+];
+const ps=document.getElementById('portStrip');
+function portFallbackSVG(){
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
+}
+portData.forEach((p)=>{
+  const tile = document.createElement('div');
+  tile.className = 'port-tile';
+  const ph = document.createElement('div');
+  ph.className = 'port-tile-ph';
+  const img = document.createElement('img');
+  img.src = 'images/' + p.img;
+  img.alt = p.label;
+  img.addEventListener('error', () => { ph.innerHTML = portFallbackSVG(); }, { once: true });
+  ph.appendChild(img);
+  tile.appendChild(ph);
+  const h4 = document.createElement('h4');
+  h4.textContent = p.label;
+  tile.appendChild(h4);
+  const span = document.createElement('span');
+  span.textContent = p.sub;
+  tile.appendChild(span);
+  ps.appendChild(tile);
+});
+
+
+
+/* Full gallery grid — with category filter and lightbox */
+const galData=[
+  {label:'Instagram Ad Set',cat:'social',img:'gallery-social-01.png'},
+  {label:'Reel Cover Design',cat:'social',img:'gallery-social-02.png'},
+  {label:'Festive Campaign Post',cat:'social',img:'gallery-social-03.png'},
+  {label:'Product Launch Post',cat:'social',img:'gallery-social-04.png'},
+  {label:'Story Templates',cat:'social',img:'gallery-social-05.png'},
+  {label:'Logo Concept',cat:'branding',img:'gallery-branding-01.png'},
+  {label:'Brand Guideline Sheet',cat:'branding',img:'gallery-branding-02.png'},
+  {label:'Icon Set',cat:'branding',img:'gallery-branding-03.png'},
+  {label:'Brand Colour Palette',cat:'branding',img:'gallery-branding-04.png'},
+  {label:'Business Stationery',cat:'branding',img:'gallery-branding-05.png'},
+  {label:'Homepage Design',cat:'web',img:'gallery-web-01.png'},
+  {label:'Landing Page Layout',cat:'web',img:'gallery-web-02.png'},
+  {label:'Mobile Site Mockup',cat:'web',img:'gallery-web-03.png'},
+  {label:'Service Page Layout',cat:'web',img:'gallery-web-04.png'},
+  {label:'E-commerce Page',cat:'web',img:'gallery-web-05.png'},
+  {label:'Business Card Design',cat:'print',img:'gallery-print-01.png'},
+  {label:'Brochure Spread',cat:'print',img:'gallery-print-02.png'},
+  {label:'Flyer Design',cat:'print',img:'gallery-print-03.png'},
+  {label:'Packaging Label',cat:'print',img:'gallery-print-04.png'},
+  {label:'Event Poster',cat:'print',img:'gallery-print-05.png'},
+];
+const gg=document.getElementById('galGrid');
+function galFallbackSVG(){
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
+}
+const srchIco=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`;
+galData.forEach((g)=>{
+  const item = document.createElement('div');
+  item.className = 'gal-item';
+  item.dataset.cat = g.cat;
+  item.addEventListener('click', () => openLb('images/' + g.img, g.label));
+
+  const ph = document.createElement('div');
+  ph.className = 'gal-ph';
+  const img = document.createElement('img');
+  img.src = 'images/' + g.img;
+  img.alt = g.label;
+  img.addEventListener('error', () => {
+    ph.innerHTML = galFallbackSVG() + '<strong></strong>';
+    ph.querySelector('strong').textContent = g.label;
+  }, { once: true });
+  ph.appendChild(img);
+  item.appendChild(ph);
+
+  const ov = document.createElement('div');
+  ov.className = 'gal-ov';
+  ov.innerHTML = srchIco;
+  item.appendChild(ov);
+
+  gg.appendChild(item);
+});
+
+document.getElementById('galFilter').addEventListener('click', e => {
+  if (!e.target.matches('.gf-btn')) return;
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const cat = e.target.dataset.cat;
+  document.querySelectorAll('.gal-item').forEach(item => {
+    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+  });
+});
+
+function openLb(src, label){
+  const img = document.getElementById('lb-img');
+  const ph = document.getElementById('lb-ph');
+  img.style.display = '';
+  ph.style.display = 'none';
+  img.src = src;
+  img.alt = label;
+  document.getElementById('lb-caption').textContent = label;
+  document.getElementById('lb').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb(e){
+  if (e) e.stopPropagation();
+  document.getElementById('lb').classList.remove('on');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+/* Process hover-driven active card */
+(function(){
+  const cards = document.querySelectorAll('.proc-card');
+  const dots = document.querySelectorAll('.proc-dot');
+  function setActive(step){
+    cards.forEach(c => c.classList.toggle('is-active', c.dataset.step === step));
+    dots.forEach(d => d.classList.toggle('is-active', d.dataset.step === step));
+  }
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => setActive(card.dataset.step));
+  });
+  setActive('1');
+})();
+
+/* Scroll-reveal + count-up */
+(function(){
+  const supportsObserver = 'IntersectionObserver' in window;
+  const revealTargets = document.querySelectorAll('.reveal, .reveal-stagger');
+  const countTargets = document.querySelectorAll('.countup');
+
+  function runCountUp(el){
+    if (el.dataset.counted === '1') return;
+    el.dataset.counted = '1';
+    const target = parseInt(el.dataset.target, 10) || 0;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now){
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(target * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target + suffix;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (!supportsObserver) {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+    countTargets.forEach(runCountUp);
+    return;
+  }
+
+  const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealTargets.forEach(el => revealObserver.observe(el));
+
+  const countObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runCountUp(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  countTargets.forEach(el => countObserver.observe(el));
+})();
+
+/* Contact form — custom inline validation, no native browser popups */
+(function(){
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const fields = [
+    { input: 'f-name', error: 'err-name', validate: v => v.trim().length > 0 },
+    { input: 'f-contact', error: 'err-contact', validate: v => v.trim().length > 3 },
+    { input: 'f-service', error: 'err-service', validate: v => v.trim().length > 0 },
+    { input: 'f-message', error: 'err-message', validate: v => v.trim().length > 0 },
+  ];
+
+  function clearFieldError(fieldWrap){
+    fieldWrap.classList.remove('has-error');
+  }
+
+  fields.forEach(f => {
+    const el = document.getElementById(f.input);
+    if (!el) return;
+    el.addEventListener('input', () => clearFieldError(el.closest('.f-field')));
+    el.addEventListener('change', () => clearFieldError(el.closest('.f-field')));
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    let firstInvalid = null;
+    fields.forEach(f => {
+      const el = document.getElementById(f.input);
+      if (!el) return;
+      const wrap = el.closest('.f-field');
+      const valid = f.validate(el.value || '');
+      wrap.classList.toggle('has-error', !valid);
+      if (!valid && !firstInvalid) firstInvalid = el;
+    });
+    if (firstInvalid) {
+      firstInvalid.focus();
+      return;
+    }
+    alert("Thanks! We'll get back to you shortly. (Hook this up to your email/CRM backend to actually receive submissions.)");
+    form.reset();
+  });
+})();
+
+/* Policy modals */
+const POLICIES = {
+  terms: {
+    title: 'Terms &amp; Conditions',
+    body: `<p style="margin-bottom:16px;"><strong>Last updated:</strong> July 2026</p>
+      <p style="margin-bottom:16px;">By visiting or using the Evolva — The Design Studio website, you agree to the following terms.</p>
+      <p style="margin-bottom:8px;"><strong>1. Services</strong></p>
+      <p style="margin-bottom:16px;">Evolva provides digital marketing, branding, logo design, website design, and related creative services. Quotes provided are estimates and may vary based on final project scope.</p>
+      <p style="margin-bottom:8px;"><strong>2. Quotes &amp; Payments</strong></p>
+      <p style="margin-bottom:16px;">Quotes shared via this website, phone, or WhatsApp are valid for 30 days. Payment terms are confirmed in a formal proposal or work order before a project begins.</p>
+      <p style="margin-bottom:8px;"><strong>3. Revisions &amp; Ownership</strong></p>
+      <p style="margin-bottom:16px;">The number of included revisions and final ownership of deliverables will be specified in your project agreement.</p>
+      <p style="margin-bottom:8px;"><strong>4. Website Use</strong></p>
+      <p style="margin-bottom:16px;">Content on this site is for informational purposes only and may be updated without notice.</p>
+      <p style="margin-bottom:8px;"><strong>5. Contact</strong></p>
+      <p>Questions about these terms can be sent to <a href="mailto:evolvadesignstudio@gmail.com" style="color:var(--blue);">evolvadesignstudio@gmail.com</a>.</p>`
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    body: `<p style="margin-bottom:16px;"><strong>Last updated:</strong> July 2026</p>
+      <p style="margin-bottom:16px;">Evolva ("we", "us") respects your privacy. This policy explains what information we collect and how we use it.</p>
+      <p style="margin-bottom:8px;"><strong>1. Information We Collect</strong></p>
+      <p style="margin-bottom:16px;">When you submit our contact form or message us on WhatsApp, we collect your name, contact details, and project information you choose to share.</p>
+      <p style="margin-bottom:8px;"><strong>2. How We Use Your Information</strong></p>
+      <p style="margin-bottom:16px;">Your information is used solely to respond to your enquiry and prepare proposals. We do not sell or rent your data to third parties.</p>
+      <p style="margin-bottom:8px;"><strong>3. Data Storage</strong></p>
+      <p style="margin-bottom:16px;">Enquiry details are retained only as long as needed for your project and basic business record-keeping.</p>
+      <p style="margin-bottom:8px;"><strong>4. Your Rights</strong></p>
+      <p style="margin-bottom:16px;">You may request that we delete or update any personal information you have shared with us by contacting us directly.</p>
+      <p style="margin-bottom:8px;"><strong>5. Contact</strong></p>
+      <p>For privacy-related questions, email <a href="mailto:evolvadesignstudio@gmail.com" style="color:var(--blue);">evolvadesignstudio@gmail.com</a>.</p>`
+  },
+  cookies: {
+    title: 'Cookie Policy',
+    body: `<p style="margin-bottom:16px;"><strong>Last updated:</strong> July 2026</p>
+      <p style="margin-bottom:16px;">This website uses minimal cookies to function properly and improve your browsing experience.</p>
+      <p style="margin-bottom:8px;"><strong>1. Cookies We Use</strong></p>
+      <p style="margin-bottom:16px;"><strong>Essential cookies</strong> — remember your cookie consent choice so you aren't asked again on every visit.</p>
+      <p style="margin-bottom:16px;">We do not currently use third-party advertising or tracking cookies on this site.</p>
+      <p style="margin-bottom:8px;"><strong>2. Managing Cookies</strong></p>
+      <p style="margin-bottom:16px;">You can clear cookies at any time through your browser settings.</p>
+      <p style="margin-bottom:8px;"><strong>3. Contact</strong></p>
+      <p>Questions about cookies can be sent to <a href="mailto:evolvadesignstudio@gmail.com" style="color:var(--blue);">evolvadesignstudio@gmail.com</a>.</p>`
+  }
+};
+
+function openPolicy(key) {
+  const p = POLICIES[key];
+  if (!p) return;
+  document.getElementById('policy-title').innerHTML = p.title;
+  document.getElementById('policy-body').innerHTML = p.body;
+  document.getElementById('policy-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePolicy() {
+  document.getElementById('policy-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePolicy(); });
+
+/* Cookie consent banner */
+function acceptCookies() {
+  localStorage.setItem('evolva_cookie_consent', 'accepted');
+  document.getElementById('cookie-banner').style.display = 'none';
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('evolva_cookie_consent')) {
+    setTimeout(() => {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }, 800);
+  }
+});
+</script>
+
+</body>
+</html>
